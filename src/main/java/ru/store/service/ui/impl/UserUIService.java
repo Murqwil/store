@@ -1,13 +1,33 @@
 package ru.store.service.ui.impl;
 
+import ru.store.enums.ProductType;
 import ru.store.service.catalog.impl.CatalogServiceImpl;
 import ru.store.service.ui.UIService;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 public class UserUIService implements UIService {
     CatalogServiceImpl catalogServiceImpl = new CatalogServiceImpl();
+    public Map<Integer, Consumer<Void>> menu = Map.of(
+            0, v -> System.exit(0),
+            1, v -> getCatalog(),
+            2, v -> addCart()
+    );
+    Scanner userAnswer = new Scanner(System.in);
+
 
     public void startMenu() {
         //Начальное приветствие
+
+        // Вынести в отдельный метод
         System.out.println("Добро пожаловать в магазин продуктов");
         System.out.println();
         System.out.println("Что вы желаете?");
@@ -16,36 +36,31 @@ public class UserUIService implements UIService {
         System.out.println("2. Добавить в корзину");
         System.out.println("0. Закрыть");
 
-        switch (catalogServiceImpl.getUserAnswer().nextInt()) {
-            case 0: System.exit(0);
+        menu.get(userAnswer.nextInt()).accept(null);
+    }
 
-            case 1:
-                System.out.println("Выберите категорию: ");
-                System.out.println();
-                System.out.println("0: Вода ");
-                System.out.println("1: Еда ");
 
-                // А если будет категория BBQ или типо того?
-                //Тут дыра, если будут новые категории то if else разрастётся...
-                if (catalogServiceImpl.getUserAnswer().nextInt() == 0) {
-                    catalogServiceImpl.getDrinkCatalog();
-                    System.out.println("Выберите необходимую категорию: ");
-                    catalogServiceImpl.getDrinktByItemName(catalogServiceImpl.getUserAnswer().nextInt());
+    public void getCatalog() {
+        System.out.println("Выберите категорию: ");
+        Map<Integer, ProductType> map =
+                IntStream.range(0, ProductType.values().length)
+                        .boxed()
+                        .collect(Collectors.toMap(
+                                i -> i,
+                                i -> ProductType.values()[i]
+                        ));
 
-                } else {
-                    catalogServiceImpl.getProductCatalog();
-                    System.out.println("Выберите необходимую категорию: ");
-                    catalogServiceImpl.getProductByItemName(catalogServiceImpl.getUserAnswer().nextInt());
+        map.forEach((key, value) -> System.out.printf("%d: %s\n", key, value.getProductType()));
 
-                }
-                break;
 
-            case 2:
-                System.out.println("Функционал добавить в корзину не реализован!");
-                break;
+        ProductType productType = map.get(userAnswer.nextInt());
 
-            default: System.out.println("Не правильно выбран меню :(");
-        }
+
+        catalogServiceImpl.getCatalogByProductType(productType);
+    }
+
+    public void addCart() {
+        System.out.println("Функционал добавить в корзину не реализован!");
     }
 
 }

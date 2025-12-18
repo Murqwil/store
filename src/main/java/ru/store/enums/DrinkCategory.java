@@ -2,13 +2,16 @@ package ru.store.enums;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 public enum DrinkCategory implements Category {
     NORMAL("Обычная вода"),
     SODA("Газировка"),
     JUICE("Сок");
 
     private final String displayName;
+
+    DrinkCategory(String displayName) {
+        this.displayName = displayName;
+    }
 
     @Override
     public String getDisplayName() {

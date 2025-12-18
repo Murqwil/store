@@ -1,6 +1,7 @@
 package ru.store.service.catalog;
 
 import ru.store.enums.Category;
+import ru.store.enums.ProductType;
 import ru.store.model.Product;
 
 public interface CatalogService {
@@ -11,5 +12,6 @@ public interface CatalogService {
     //Фильтруй товары по категории
     void getProductByItemName(int userAnswer);
     void getDrinktByItemName(int userAnswer);
+    void getCatalogByProductType(ProductType productType);
 
 }
