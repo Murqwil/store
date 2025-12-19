@@ -3,8 +3,11 @@ package ru.store.service.ui.impl;
 import ru.store.service.catalog.impl.CatalogServiceImpl;
 import ru.store.service.ui.UIService;
 
+import java.util.Scanner;
+
 public class ManagerUIService implements UIService {
-    CatalogServiceImpl catalogServiceImpl = new CatalogServiceImpl();
+    private final CatalogServiceImpl catalogService = CatalogServiceImpl.getInstance();
+    Scanner userAnswer = new Scanner(System.in);
 
     @Override
     public void startMenu() {
@@ -16,7 +19,7 @@ public class ManagerUIService implements UIService {
         System.out.println("2. Добавить товар");
         System.out.println("0. Закрыть");
 
-        switch (catalogServiceImpl.getUserAnswer().nextInt()) {
+        switch (userAnswer.nextInt()) {
             case 0: System.exit(0);
             case 1:
                 System.out.println("Выберите категорию: ");
@@ -24,14 +27,14 @@ public class ManagerUIService implements UIService {
                 System.out.println("0: Вода ");
                 System.out.println("1: Еда ");
 
-                if (catalogServiceImpl.getUserAnswer().nextInt() == 0) {
-                    catalogServiceImpl.getDrinkCatalog();
+                if (userAnswer.nextInt() == 0) {
+                    catalogService.getDrinkCatalog();
                     System.out.println("Выберите необходимую категорию: ");
-                    catalogServiceImpl.getUserAnswer().nextInt();
+                    userAnswer.nextInt();
                 } else {
-                    catalogServiceImpl.getProductCatalog();
+                    catalogService.getProductCatalog();
                     System.out.println("Выберите необходимую категорию: ");
-                    catalogServiceImpl.getUserAnswer().nextInt();
+                    userAnswer.nextInt();
                 }
                 break;
             case 2:

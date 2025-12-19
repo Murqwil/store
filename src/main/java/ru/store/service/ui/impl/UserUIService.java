@@ -3,8 +3,11 @@ package ru.store.service.ui.impl;
 import ru.store.service.catalog.impl.CatalogServiceImpl;
 import ru.store.service.ui.UIService;
 
+import java.util.Scanner;
+
 public class UserUIService implements UIService {
-    CatalogServiceImpl catalogServiceImpl = new CatalogServiceImpl();
+    private final CatalogServiceImpl catalogServiceImpl = CatalogServiceImpl.getInstance();
+    Scanner userAnswer = new Scanner(System.in);
 
     public void startMenu() {
         //Начальное приветствие
@@ -16,7 +19,7 @@ public class UserUIService implements UIService {
         System.out.println("2. Добавить в корзину");
         System.out.println("0. Закрыть");
 
-        switch (catalogServiceImpl.getUserAnswer().nextInt()) {
+        switch (userAnswer.nextInt()) {
             case 0: System.exit(0);
 
             case 1:
@@ -27,16 +30,14 @@ public class UserUIService implements UIService {
 
                 // А если будет категория BBQ или типо того?
                 //Тут дыра, если будут новые категории то if else разрастётся...
-                if (catalogServiceImpl.getUserAnswer().nextInt() == 0) {
+                if (userAnswer.nextInt() == 0) {
                     catalogServiceImpl.getDrinkCatalog();
                     System.out.println("Выберите необходимую категорию: ");
-                    catalogServiceImpl.getDrinktByItemName(catalogServiceImpl.getUserAnswer().nextInt());
-
+                    catalogServiceImpl.getDrinktByItemName(userAnswer.nextInt());
                 } else {
                     catalogServiceImpl.getProductCatalog();
                     System.out.println("Выберите необходимую категорию: ");
-                    catalogServiceImpl.getProductByItemName(catalogServiceImpl.getUserAnswer().nextInt());
-
+                    catalogServiceImpl.getProductByItemName(userAnswer.nextInt());
                 }
                 break;
 
