@@ -14,7 +14,7 @@ public class Main  {
     static UIService callUserService = new UserUIService();
     static UIService callManagerService = new ManagerUIService();
 
-    static CatalogServiceImpl catalogService = new CatalogServiceImpl();
+    static CatalogServiceImpl catalogService = CatalogServiceImpl.getInstance();
 
     public static void main(String[] args) {
         DataInit data = new DataInit();
@@ -24,6 +24,7 @@ public class Main  {
         catalogService.addProduct(data.product4);
         catalogService.addProduct(data.product5);
 //        catalogService.getAllAssortment().forEach(System.out::println);
+
 
         callUserService.startMenu();
     }
