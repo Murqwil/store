@@ -10,10 +10,8 @@ import ru.store.service.catalog.CatalogService;
 import java.util.*;
 
 public class CatalogServiceImpl implements CatalogService {
-    Map<Category, List<Product>> productByCategory = new HashMap<>();
+    private final CatalogServiceImpl instance = new CatalogServiceImpl();
     Map<ProductType, Map<Category, List<Product>>> catalog =  new HashMap<>();
-
-
     List<Product> allAssortment = new ArrayList<>();
 
 
@@ -54,10 +52,10 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     public void addProduct(Product product) {
         allAssortment.add(product);
-        Category category = product.getItemType();
+//        Category category = product.getItemType();
 
-        productByCategory.computeIfAbsent(category, k -> new ArrayList<>())
-                .add(product);
+//        productByCategory.computeIfAbsent(category, k -> new ArrayList<>())
+//                .add(product);
     }
 
     @Override

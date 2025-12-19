@@ -1,7 +1,5 @@
 package ru.store.enums;
 
-import lombok.AllArgsConstructor;
-
 public enum DrinkCategory implements Category {
     NORMAL("Обычная вода"),
     SODA("Газировка"),

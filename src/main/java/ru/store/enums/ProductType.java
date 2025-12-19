@@ -1,16 +1,27 @@
 package ru.store.enums;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@Getter
+@AllArgsConstructor
 public enum ProductType {
-    PRODUCT("Продукты"),
-    DRINK("Напитки");
+    PRODUCT("Продукты", ProductCategory.values()),
+    DRINK("Напитки", DrinkCategory.values());
 
-    @Getter
-    private String productType;
 
-    ProductType(String productType) {
-        this.productType = productType;
+    private final String productType;
+    private final Category[] category;
+
+
+    public Category getCategory(Category inputCategory) {
+        for(Category c : category) {
+            if(c.equals(inputCategory)) {
+                return inputCategory;
+            } else {
+                return inputCategory;
+            }
+        }
+        return null;
     }
-
 }

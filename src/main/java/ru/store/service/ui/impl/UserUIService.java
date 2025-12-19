@@ -4,13 +4,9 @@ import ru.store.enums.ProductType;
 import ru.store.service.catalog.impl.CatalogServiceImpl;
 import ru.store.service.ui.UIService;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.function.BiFunction;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 

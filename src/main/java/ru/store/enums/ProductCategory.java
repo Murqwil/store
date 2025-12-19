@@ -1,7 +1,5 @@
 package ru.store.enums;
 
-import lombok.AllArgsConstructor;
-
 public enum ProductCategory implements Category {
     MEAT("Мясо"),
     CHEESE("Сыр"),
