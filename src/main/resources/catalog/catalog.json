@@ -3,42 +3,13 @@
     "productName": "Чеддер",
     "price": 249.9,
     "isAvailable": true,
-    "category": "CHEESE"
+    "itemType": "CHEESE"
   },
   {
-    "productName": "Чеддер",
-    "price": 249.9,
+    "productName": "Куринные грудки",
+    "price": 350,
     "isAvailable": true,
-    "category": "CHEESE"
-  },
-  {
-    "productName": "Чеддер",
-    "price": 249.9,
-    "isAvailable": true,
-    "category": "CHEESE"
-  },
-  {
-    "productName": "Чеддер",
-    "price": 249.9,
-    "isAvailable": true,
-    "category": "CHEESE"
-  },
-  {
-    "productName": "Чеддер",
-    "price": 249.9,
-    "isAvailable": true,
-    "category": "CHEESE"
-  },
-  {
-    "productName": "Чеддер",
-    "price": 249.9,
-    "isAvailable": true,
-    "category": "CHEESE"
-  },
-  {
-    "productName": "Чеддер",
-    "price": 249.9,
-    "isAvailable": true,
-    "category": "CHEESE"
-  },
+    "itemType": "MEAT"
+  }
 ]
+

@@ -11,19 +11,17 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class UserUIService implements UIService {
-    CatalogServiceImpl catalogServiceImpl = new CatalogServiceImpl();
+    private final CatalogServiceImpl catalogServiceImpl = CatalogServiceImpl.getInstance();
+    private final Scanner userAnswer = new Scanner(System.in);
+
     public Map<Integer, Consumer<Void>> menu = Map.of(
             0, v -> System.exit(0),
             1, v -> getCatalog(),
             2, v -> addCart()
     );
-    Scanner userAnswer = new Scanner(System.in);
 
 
     public void startMenu() {
-        //Начальное приветствие
-
-        // Вынести в отдельный метод
         System.out.println("Добро пожаловать в магазин продуктов");
         System.out.println();
         System.out.println("Что вы желаете?");
