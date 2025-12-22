@@ -51,6 +51,8 @@ public class UserUIService implements UIService {
 
 
         catalogServiceImpl.getCatalogByProductType(productType);
+        System.out.println("Выберите интересующий Вас продукт: ");
+        catalogServiceImpl.getProductsByCategory(productType,userAnswer.nextInt());
     }
 
     public void addCart() {

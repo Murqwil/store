@@ -6,12 +6,12 @@ import ru.store.model.Product;
 
 public interface CatalogService {
     //Получи возможные варианты товаров в магазине
-    void getProductCatalog();
-    void getDrinkCatalog();
+    void getProductProductType();
+    void getDrinkProductType();
     void addProduct(Product product);
     //Фильтруй товары по категории
-    void getProductByItemName(int userAnswer);
-    void getDrinktByItemName(int userAnswer);
     void getCatalogByProductType(ProductType productType);
+    void getProductsByCategory(ProductType productType, int categoryChoice);
+    void getAllProducts();
 
 }

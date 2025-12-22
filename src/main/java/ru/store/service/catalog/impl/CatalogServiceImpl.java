@@ -8,10 +8,8 @@ import ru.store.enums.ProductType;
 import ru.store.model.Product;
 import ru.store.service.catalog.CatalogService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 @Data
 public class CatalogServiceImpl implements CatalogService {
     Map<ProductType, Map<Category, List<Product>>> catalog =  new HashMap<>();
@@ -27,14 +25,14 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    public void getProductCatalog() {
+    public void getProductProductType() {
         for(ProductCategory productCategory : ProductCategory.values()) {
             System.out.println(productCategory.ordinal() + " : " + productCategory);
         }
     }
 
     @Override
-    public void getDrinkCatalog() {
+    public void getDrinkProductType() {
         for(DrinkCategory drinkCategory : DrinkCategory.values()) {
             System.out.println(drinkCategory.ordinal() + " : " + drinkCategory);
         }
@@ -63,20 +61,42 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     public void addProduct(Product product) {
         allAssortment.add(product);
-//        Category category = product.getItemType();
+        ProductType productType = product.getProductType();
+        Category category = product.getCategory();
 
-//        productByCategory.computeIfAbsent(category, k -> new ArrayList<>())
-//                .add(product);
+        catalog.computeIfAbsent(productType, k -> new HashMap<>())
+                .computeIfAbsent(category, k -> new ArrayList<>())
+                .add(product);
     }
 
     @Override
-    public void getProductByItemName(int userAnswer) {
+    public void getProductsByCategory(ProductType productType, int categoryChoice) {
+        List<Category> categories;
 
+        if (productType == ProductType.PRODUCT) {
+            categories = Arrays.asList(ProductCategory.values());
+        } else if (productType == ProductType.DRINK) {
+            categories = Arrays.asList(DrinkCategory.values());
+        } else {
+            categories = Collections.emptyList();
+        }
+
+        if (categoryChoice < 0 || categoryChoice >= categories.size()) {
+            System.out.println("Неверный выбор категории");
+            return;
+        }
+        Category selectedCategory = categories.get(categoryChoice);
+
+        allAssortment.stream()
+                .filter(product -> product.getProductType() == productType)
+                .filter(product -> product.getCategory().equals(selectedCategory))
+                .forEach(System.out::println);
     }
 
-    @Override
-    public void getDrinktByItemName(int userAnswer) {
 
+    @Override
+    public void getAllProducts() {
+        instance.getAllAssortment().forEach(System.out::println);
     }
 }
 

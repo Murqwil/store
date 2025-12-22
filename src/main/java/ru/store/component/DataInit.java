@@ -4,10 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.store.model.Product;
 import ru.store.service.catalog.CatalogService;
-import ru.store.service.catalog.impl.CatalogServiceImpl;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -20,11 +18,9 @@ public class DataInit {
         File file = new File(pathToCatalog);
 
         try {
-            // Сначала смотрим содержимое файла
             String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
 
             if (content.trim().startsWith("[")) {
-                // Это массив
                 List<Product> products = mapper.readValue(
                         file,
                         new TypeReference<List<Product>>() {}
@@ -34,7 +30,6 @@ public class DataInit {
                     catalogService.addProduct(product);
                 }
             } else if (content.trim().startsWith("{")) {
-                // Это одиночный объект
                 Product product = mapper.readValue(file, Product.class);
                 catalogService.addProduct(product);
             } else {
