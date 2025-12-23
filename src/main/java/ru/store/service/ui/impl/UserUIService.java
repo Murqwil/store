@@ -22,9 +22,6 @@ public class UserUIService implements UIService {
 
 
     public void startMenu() {
-        System.out.println("Добро пожаловать в магазин продуктов");
-        System.out.println();
-        System.out.println("Что вы желаете?");
         System.out.println("Пользовательское меню: ");
         System.out.println("1. Каталог");
         System.out.println("2. Добавить в корзину");
@@ -53,6 +50,15 @@ public class UserUIService implements UIService {
         catalogServiceImpl.getCatalogByProductType(productType);
         System.out.println("Выберите интересующий Вас продукт: ");
         catalogServiceImpl.getProductsByCategory(productType,userAnswer.nextInt());
+        System.out.println("Желаете ли вы что то сделать с данными продуктами?");
+        System.out.println("1. Положить товар в мою корзину");
+        System.out.println("0. Вернутся в меню");
+
+        if(userAnswer.nextInt() == 0) {
+            startMenu();
+        } else {
+            addCart();
+        }
     }
 
     public void addCart() {

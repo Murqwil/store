@@ -22,10 +22,7 @@ public class ManagerUIService implements UIService {
 
     @Override
     public void startMenu() {
-        System.out.println("Добро пожаловать в магазин продуктов");
-        System.out.println();
-        System.out.println("Что вы желаете?");
-        System.out.println("Пользовательское меню: ");
+        System.out.println("Меню менеджера: ");
         System.out.println("1. Каталог");
         System.out.println("2. Добавить товар в каталог");
         System.out.println("0. Закрыть");
@@ -52,6 +49,15 @@ public class ManagerUIService implements UIService {
         catalogServiceImpl.getCatalogByProductType(productType);
         System.out.println("Выберите интересующий Вас продукт: ");
         catalogServiceImpl.getProductsByCategory(productType,userAnswer.nextInt());
+        System.out.println("Желаете ли вы что то сделать с данными продуктами?");
+        System.out.println("1. Добавить новый товар в каталог");
+        System.out.println("0. Вернутся в меню");
+
+        if(userAnswer.nextInt() == 0) {
+            startMenu();
+        } else {
+            addProductToStore();
+        }
     }
 
     public void addProductToStore() {

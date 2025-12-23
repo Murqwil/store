@@ -13,24 +13,12 @@ import java.util.*;
 
 public class CatalogServiceImpl implements CatalogService {
     private final Map<ProductType, Map<Category, List<Product>>> catalog =  new HashMap<>();
+    //Необходимо реализовать методы getter, убрать ломбоковскую часть
     @Getter
     private final List<Product> allAssortment = new ArrayList<>();
+
     @Getter
     private static final CatalogServiceImpl catalogService = CatalogGetInstance.getInstance();
-
-    @Override
-    public void getProductProductType() {
-        for(ProductCategory productCategory : ProductCategory.values()) {
-            System.out.println(productCategory.ordinal() + " : " + productCategory);
-        }
-    }
-
-    @Override
-    public void getDrinkProductType() {
-        for(DrinkCategory drinkCategory : DrinkCategory.values()) {
-            System.out.println(drinkCategory.ordinal() + " : " + drinkCategory);
-        }
-    }
 
     @Override
     public void getCatalogByProductType(ProductType productType) {
@@ -65,26 +53,12 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public void getProductsByCategory(ProductType productType, int categoryChoice) {
-        List<Category> categories;
+            Category selectedCategory = productType.getCategoryByIndex(categoryChoice);
 
-        if (productType == ProductType.PRODUCT) {
-            categories = Arrays.asList(ProductCategory.values());
-        } else if (productType == ProductType.DRINK) {
-            categories = Arrays.asList(DrinkCategory.values());
-        } else {
-            categories = Collections.emptyList();
-        }
-
-        if (categoryChoice < 0 || categoryChoice >= categories.size()) {
-            System.out.println("Неверный выбор категории");
-            return;
-        }
-        Category selectedCategory = categories.get(categoryChoice);
-
-        allAssortment.stream()
-                .filter(product -> product.getProductType() == productType)
-                .filter(product -> product.getCategory().equals(selectedCategory))
-                .forEach(System.out::println);
+            allAssortment.stream()
+                    .filter(product -> product.getProductType() == productType)
+                    .filter(product -> product.getCategory().equals(selectedCategory))
+                    .forEach(System.out::println);
     }
 
 
