@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class UserUIService implements UIService {
-    private final CatalogServiceImpl catalogServiceImpl = CatalogServiceImpl.getInstance();
+    private final CatalogServiceImpl catalogServiceImpl = CatalogServiceImpl.getCatalogService();
     private final Scanner userAnswer = new Scanner(System.in);
 
     public Map<Integer, Consumer<Void>> menu = Map.of(

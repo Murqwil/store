@@ -1,6 +1,7 @@
 package ru.store.service.catalog.impl;
 
-import lombok.Data;
+import lombok.Getter;
+import ru.store.configuration.CatalogGetInstance;
 import ru.store.enums.Category;
 import ru.store.enums.DrinkCategory;
 import ru.store.enums.ProductCategory;
@@ -10,19 +11,12 @@ import ru.store.service.catalog.CatalogService;
 
 import java.util.*;
 
-@Data
 public class CatalogServiceImpl implements CatalogService {
-    Map<ProductType, Map<Category, List<Product>>> catalog =  new HashMap<>();
-    List<Product> allAssortment = new ArrayList<>();
-
-    private static CatalogServiceImpl instance;
-
-    public static CatalogServiceImpl getInstance() {
-        if (instance == null) {
-            instance = new CatalogServiceImpl();
-        }
-        return instance;
-    }
+    private final Map<ProductType, Map<Category, List<Product>>> catalog =  new HashMap<>();
+    @Getter
+    private final List<Product> allAssortment = new ArrayList<>();
+    @Getter
+    private static final CatalogServiceImpl catalogService = CatalogGetInstance.getInstance();
 
     @Override
     public void getProductProductType() {
@@ -96,7 +90,7 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public void getAllProducts() {
-        instance.getAllAssortment().forEach(System.out::println);
+        catalogService.getAllAssortment().forEach(System.out::println);
     }
 }
 

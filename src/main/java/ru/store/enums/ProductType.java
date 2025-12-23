@@ -9,6 +9,6 @@ public enum ProductType {
     PRODUCT("Продукты"),
     DRINK("Напитки");
 
-
     private final String productType;
+
 }

@@ -19,8 +19,7 @@ public class CustomAnnotationProcessor {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("User type not found"));
 
-        CatalogServiceImpl catalogService = CatalogServiceImpl.getInstance();
-        DataInit.initCatalog(catalogService);
+        DataInit.initCatalog(CatalogServiceImpl.getCatalogService());
 
         Map<String, UIService> services = Map.of(
                 "user", new UserUIService(),

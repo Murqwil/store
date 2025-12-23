@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ManagerUIService implements UIService {
-    private final CatalogServiceImpl catalogServiceImpl = CatalogServiceImpl.getInstance();
+    private final CatalogServiceImpl catalogServiceImpl = CatalogServiceImpl.getCatalogService();
     private final Scanner userAnswer = new Scanner(System.in);
 
     public Map<Integer, Consumer<Void>> menu = Map.of(
@@ -50,6 +50,8 @@ public class ManagerUIService implements UIService {
 
 
         catalogServiceImpl.getCatalogByProductType(productType);
+        System.out.println("Выберите интересующий Вас продукт: ");
+        catalogServiceImpl.getProductsByCategory(productType,userAnswer.nextInt());
     }
 
     public void addProductToStore() {
