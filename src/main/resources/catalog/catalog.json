@@ -3,28 +3,24 @@
     "productName": "Чеддер",
     "price": 249.9,
     "isAvailable": true,
-    "productType": "PRODUCT",
     "category": "CHEESE"
   },
   {
     "productName": "Куринные грудки",
     "price": 350,
     "isAvailable": true,
-    "productType": "PRODUCT",
     "category": "MEAT"
   },
   {
     "productName": "Вода",
     "price": 30,
     "isAvailable": true,
-    "productType": "DRINK",
     "category": "NORMAL"
   },
   {
     "productName": "Сок апельсиновый",
     "price": 350,
     "isAvailable": true,
-    "productType": "DRINK",
     "category": "JUICE"
   }
 ]

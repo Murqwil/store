@@ -1,13 +1,14 @@
 package ru.store.configuration;
 
 import lombok.Getter;
+import ru.store.service.catalog.CatalogService;
 import ru.store.service.catalog.impl.CatalogServiceImpl;
 
 @Getter
 public class CatalogGetInstance {
-    private static CatalogServiceImpl instance;
+    private static volatile CatalogService instance;
 
-    public static CatalogServiceImpl getInstance() {
+    public static synchronized CatalogService getInstance() {
         if (instance == null) {
             instance = new CatalogServiceImpl();
         }

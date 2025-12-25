@@ -1,7 +1,7 @@
 package ru.store.annotation.processor;
 
 import ru.store.component.DataInit;
-import ru.store.service.catalog.impl.CatalogServiceImpl;
+import ru.store.configuration.CatalogGetInstance;
 import ru.store.service.ui.UIService;
 import ru.store.service.ui.impl.ManagerUIService;
 import ru.store.service.ui.impl.UserUIService;
@@ -19,7 +19,7 @@ public class CustomAnnotationProcessor {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("User type not found"));
 
-        DataInit.initCatalog(CatalogServiceImpl.getCatalogService());
+        DataInit.initCatalog(CatalogGetInstance.getInstance());
 
         Map<String, UIService> services = Map.of(
                 "user", new UserUIService(),

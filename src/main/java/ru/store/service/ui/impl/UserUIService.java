@@ -1,7 +1,8 @@
 package ru.store.service.ui.impl;
 
+import ru.store.configuration.CatalogGetInstance;
 import ru.store.enums.ProductType;
-import ru.store.service.catalog.impl.CatalogServiceImpl;
+import ru.store.service.catalog.CatalogService;
 import ru.store.service.ui.UIService;
 
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class UserUIService implements UIService {
-    private final CatalogServiceImpl catalogServiceImpl = CatalogServiceImpl.getCatalogService();
+    private static final CatalogService catalogService = CatalogGetInstance.getInstance();
     private final Scanner userAnswer = new Scanner(System.in);
 
     public Map<Integer, Consumer<Void>> menu = Map.of(
@@ -47,9 +48,9 @@ public class UserUIService implements UIService {
         ProductType productType = map.get(userAnswer.nextInt());
 
 
-        catalogServiceImpl.getCatalogByProductType(productType);
+        catalogService.getCatalogByProductType(productType);
         System.out.println("Выберите интересующий Вас продукт: ");
-        catalogServiceImpl.getProductsByCategory(productType,userAnswer.nextInt());
+        catalogService.getProductsByCategory(productType, userAnswer.nextInt());
         System.out.println("Желаете ли вы что то сделать с данными продуктами?");
         System.out.println("1. Положить товар в мою корзину");
         System.out.println("0. Вернутся в меню");

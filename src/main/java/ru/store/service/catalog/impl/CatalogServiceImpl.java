@@ -1,7 +1,5 @@
 package ru.store.service.catalog.impl;
 
-import lombok.Getter;
-import ru.store.configuration.CatalogGetInstance;
 import ru.store.enums.Category;
 import ru.store.enums.DrinkCategory;
 import ru.store.enums.ProductCategory;
@@ -10,40 +8,51 @@ import ru.store.model.Product;
 import ru.store.service.catalog.CatalogService;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 public class CatalogServiceImpl implements CatalogService {
     private final Map<ProductType, Map<Category, List<Product>>> catalog =  new HashMap<>();
-    //Необходимо реализовать методы getter, убрать ломбоковскую часть
-    @Getter
     private final List<Product> allAssortment = new ArrayList<>();
 
-    @Getter
-    private static final CatalogServiceImpl catalogService = CatalogGetInstance.getInstance();
+    private static final Map<Optional<ProductType>, Consumer<Void>> getListProductType = Map.of(
+            Optional.empty(), v -> getAllCatalog(),
+            Optional.of(ProductType.PRODUCT), v -> getProducts(),
+            Optional.of(ProductType.DRINK), v -> getDrinks()
+    );
+
+    public static void getDrinks() {
+        for(DrinkCategory drinkCategory : DrinkCategory.values()) {
+            System.out.println(drinkCategory.ordinal() + " : " + drinkCategory);
+        }
+    }
+
+    public static void getProducts() {
+        for(ProductCategory productCategory : ProductCategory.values()) {
+            System.out.println(productCategory.ordinal() + " : " + productCategory);
+        }
+    }
+
+    public static void getAllCatalog() {
+        getProducts();
+        getDrinks();
+    }
 
     @Override
     public void getCatalogByProductType(ProductType productType) {
-        if (productType == null) {
-            for(DrinkCategory drinkCategory : DrinkCategory.values()) {
-                System.out.println(drinkCategory.ordinal() + " : " + drinkCategory);
-            }
-            for(ProductCategory productCategory : ProductCategory.values()) {
-                System.out.println(productCategory.ordinal() + " : " + productCategory);
-            }
-        } else if (productType == ProductType.DRINK) {
-            for(DrinkCategory drinkCategory : DrinkCategory.values()) {
-                System.out.println(drinkCategory.ordinal() + " : " + drinkCategory);
-            }
+        Optional<ProductType> key = Optional.ofNullable(productType);
+        Consumer<Void> action = getListProductType.get(key);
+
+        if (action != null) {
+            action.accept(null);
         } else {
-            for(ProductCategory productCategory : ProductCategory.values()) {
-                System.out.println(productCategory.ordinal() + " : " + productCategory);
-            }
+            getAllCatalog();
         }
     }
 
     @Override
     public void addProduct(Product product) {
         allAssortment.add(product);
-        ProductType productType = product.getProductType();
+        ProductType productType = ProductType.getProductType(product.getCategory());
         Category category = product.getCategory();
 
         catalog.computeIfAbsent(productType, k -> new HashMap<>())
@@ -56,7 +65,6 @@ public class CatalogServiceImpl implements CatalogService {
             Category selectedCategory = productType.getCategoryByIndex(categoryChoice);
 
             allAssortment.stream()
-                    .filter(product -> product.getProductType() == productType)
                     .filter(product -> product.getCategory().equals(selectedCategory))
                     .forEach(System.out::println);
     }
@@ -64,7 +72,7 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public void getAllProducts() {
-        catalogService.getAllAssortment().forEach(System.out::println);
+        allAssortment.forEach(System.out::println);
     }
 }
 

@@ -18,22 +18,11 @@ public class DataInit {
         File file = new File(pathToCatalog);
 
         try {
-            String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
 
-            if (content.trim().startsWith("[")) {
-                List<Product> products = mapper.readValue(
-                        file,
-                        new TypeReference<List<Product>>() {}
-                );
+            List<Product> products = mapper.readValue(file, new TypeReference<>() {});
 
-                for (Product product : products) {
-                    catalogService.addProduct(product);
-                }
-            } else if (content.trim().startsWith("{")) {
-                Product product = mapper.readValue(file, Product.class);
+            for (Product product : products) {
                 catalogService.addProduct(product);
-            } else {
-                System.err.println("Неверный формат JSON файла");
             }
 
         } catch (IOException e) {
